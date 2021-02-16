@@ -76,7 +76,7 @@ void Multiply_short_SIMD(short** m1,short **m2, short **result, int row1, int co
 
 
 ## Testing Hardware 
-* i7-8700K Bosst to 4.3GHz
+* i7-8700K Boost to 4.7GHz
 * GTX 1080
 * 32G DDR4 Memory
 * Windows 10 64 bit
@@ -91,7 +91,7 @@ all calculating time measure in seconds
 |2000 x 2000  |	   55.324|	  11.085|      66.811|    13.891|
 |3000 x 3000  |	  191.002|	  30.873|     242.099|    66.698|
 |4000 x 4000  |	  499.002|       161.862|     710.898|   169.826|
-|5000 x 5000  |  1060.893|       279.756|     TBT    |   177.089|
+|5000 x 5000  |  1060.893|       279.756|    1053.444|   177.089|
 |6000 x 6000  |  2993.331|       588.747| TBT	     |   289.079|
 |7000 x 7000  |	   TBT   |       854.477|	TBT  |   607.056|
 |8000 x 8000  |	     TBT |      1380.719|	 TBT |   902.848|
