@@ -14,7 +14,8 @@ The project is written on C and is comprised of 1 test.c file for running and 2 
 ## Compiling & Running
 
 In order to run the project, you can use the following command to compile the test.c code.  
-#### gcc -Wall -Mavx2(This command is used to enable SIMD) -o test.o test.c helper.c  & ./test.o
+#### gcc -Wall -Mavx2(This command is used to enable SIMD) -o test.o test.c helper.c  
+#### ./test.o
 
 ## User Interface
 
@@ -79,17 +80,20 @@ void Multiply_short_SIMD(short** m1,short **m2, short **result, int row1, int co
 
 
 
-## result
+## result in table
+all calculating time measure in seconds 
 
-|size	    |native Fix|      SIMD Fix|native Float	|SIMD Float|
+|matrix size	    |native Fix|      SIMD Fix|native Float	|SIMD Float|
 |---|---|---|---|---|
 |1000 x 1000|	  4.965|	 0.815|	   6.303|0.791|
 |2000 x 2000|	 55.324|	11.085|	  66.811|13.891|
-|3000 x 3000|	191.002|	30.873|		|66.698|
+|3000 x 3000|	191.002|	30.873|	242.099 |66.698|
 |4000 x 4000|	499.002|       161.862|		|169.826||
-|5000 x 5000|  1060.893|       279.756|		|177.089|
-|6000 x 6000|  2993.331|       588.747| 	|289.079|
-|7000 x 7000|	       |       854.477|		|607.056|
-|8000 x 8000|	       |      1380.719|		|902.848|
-|9000 x 9000|  5780.853|      1776.190|		|1295.968|
+|5000 x 5000|  1060.893|       279.756|	TBT	|177.089|
+|6000 x 6000|  2993.331|       588.747| TBT	|289.079|
+|7000 x 7000|	 TBT   |       854.477|	TBT	|607.056|
+|8000 x 8000|	   TBT |      1380.719|	TBT	|902.848|
+|9000 x 9000|  5780.853|      1776.190|	TBT	|1295.968|
 |10000 x 10000|7382.446|      2590.344|	9634.913|	2112.581|
+
+* TBT = to be tested
