@@ -75,12 +75,14 @@ void Multiply_short_SIMD(short** m1,short **m2, short **result, int row1, int co
 
 
 
+## Testing Hardware 
+* i7-8700K Bosst to 4.3GHz
+* GTX 1080
+* 32G DDR4 Memory
+* Windows 10 64 bit
 
 
-
-
-
-## result in table
+## Testing Result in Table
 all calculating time measure in seconds 
 
 |matrix size  |native Fix|   SIMD Fix   |native Float|SIMD Float|
