@@ -9,12 +9,12 @@ Single instruction, multiple data(SIMD) is a class of parallel computers in Flyn
 Nowadays, normal memory speed has not kept pace with that of processors. The performance boost for CPU is about 50% annually while for memory only 10% annually. Based on the fact of speed mismatch. The idea of cache optimization arise. The logic was that to make often used data stay in the fast cache memory that the processor need not frequently go back to main memory for it 
 
 ## Coding structure
-The project is written on C and is comprised of 1 test.c file for running and 2 helpler files including predefined functions for different cases.
+The project is written on C and is comprised of 1 test.c file for running and 2 helper files including predefined functions for different cases.
 
 ## Compiling & Running
 
 In order to run the project, you can use the following command to compile the test.c code.  
-#### gcc -Wall -Mavx2(This command is used to enable SIMD) -o test.o test.c helper.c  
+#### gcc -Wall -mavx2(This command is used to enable SIMD) -o test.o test.c helper.c  
 #### ./test.o
 
 ## User Interface
@@ -92,10 +92,13 @@ all calculating time measure in seconds
 |3000 x 3000  |	  191.002|	  30.873|     242.099|    66.698|
 |4000 x 4000  |	  499.002|       161.862|     710.898|   169.826|
 |5000 x 5000  |  1060.893|       279.756|    1053.444|   177.089|
-|6000 x 6000  |  2993.331|       588.747| TBT	     |   289.079|
-|7000 x 7000  |	   TBT   |       854.477|	TBT  |   607.056|
-|8000 x 8000  |	     TBT |      1380.719|	 TBT |   902.848|
+|6000 x 6000  |  1686.768|       588.747|    1820.053|   289.079|
+|7000 x 7000  |	 2993.331|       854.477|    2991.452|   607.056|
+|8000 x 8000  |	 3855.422|      1380.719|    4116.431|   902.848|
 |9000 x 9000  |  5780.853|      1776.190|    6342.021|  1295.968|
 |10000 x 10000|  7382.446|      2590.344|    9634.913|  2112.581|
 
 * TBT = to be tested
+
+![Fix results](./fig/fix.jpg)
+![float results](./fig/float.jpg)
