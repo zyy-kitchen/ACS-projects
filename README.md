@@ -98,7 +98,7 @@ all calculating time measure in seconds
 |9000 x 9000  |  5780.853|      1776.190|    6342.021|  1295.968|
 |10000 x 10000|  7382.446|      2590.344|    9634.913|  2112.581|
 
-* TBT = to be tested
+
 
 ![Fix results](./fig/fix.jpg)
 ![float results](./fig/float.jpg)
