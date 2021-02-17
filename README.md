@@ -102,3 +102,6 @@ all calculating time measure in seconds
 
 ![Fix results](./fig/fix.jpg)
 ![float results](./fig/float.jpg)
+
+## Conclusion
+In conclusion, from our testing result we can clearly tell that for Matrix multiplication, with the help of SIMD, the speed of the calculation time increase significantly for both fixed and floating data type. While considering the calculation speed for the 2 data types, we can tell from our experiment results that native fixed point multiplication takes less time than the native floating point matrix multiplication while SIMD floating point multiplication takes similar or less(for large testing size) time than the SIMD fixed point matrix multiplication.
