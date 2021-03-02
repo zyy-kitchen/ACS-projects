@@ -93,7 +93,7 @@ Ubuntu 20.04
 
 
 ## Experimental results
-![results](./fig/Result.jpg)
+
 
 
 
