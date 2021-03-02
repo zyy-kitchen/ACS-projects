@@ -93,7 +93,10 @@ Ubuntu 20.04
 
 
 ## Experimental results
-TODO
+![results](./fig/Result.jpg)
+
+
+
 ## Conclusion
 In conclusion, from our testing results, we can easily tell that multithreading will largely improve the speed of the compression work for large size input files. However, if we blindly increase the number of threads executing together, the cost for thread resource competing will influence the efficiency.
 
