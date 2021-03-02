@@ -93,6 +93,9 @@ int read_file_blocks(char blocks[][BLOCK_SIZE+1], int thread_num, FILE * ptr, in
 \*16G DDR4 Memory  
 \*Ubuntu 20.04
 
+## Compression Ratio
+The team used a 10GB(10737418240 Bytes) random generated text file to be the input file and the output files for all the 16 different threads testings are around 1GB.(like 1000384855 Bytes) So the compression rate is about 10 times for this file.
+
 
 ## Experimental results
 
