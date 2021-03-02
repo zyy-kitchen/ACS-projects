@@ -33,20 +33,29 @@ void *CompressionWork(void * thread_argv){
 
 			
 	char compressed_output[BLOCK_SIZE_COMPRESS_LIMIT+1];
+	memset(compressed_output,0,sizeof(compressed_output));
+
 
 
 	compress2((Bytef *)compressed_output, &thread_data->compsize, (Bytef *)thread_data->uncompress, thread_data->ucompsize, Z_BEST_COMPRESSION );
 
-	strcpy(thread_data->compress, compressed_output);	
+	strncpy(thread_data->compress, compressed_output, strlen(compressed_output));	
 
 	/**
 	For testing the correctness of the Pthreading
 	Copy the input data to output data without
 	Compression
+	*
 
 	strcpy(thread_data->compress, thread_data->uncompress);
 
+	thread_data->compress[strlen(thread_data->compress)]='\0';
+
+	printf("The compress output is\n %s\n", thread_data->compress );
 	**/
+
+
+	
 
 	pthread_exit(NULL);
 }
@@ -143,33 +152,52 @@ int main(int argc, char ** argv){
 			strcpy(thread_data_array[i].uncompress, cycle_blocks[i]);
 			thread_data_array[i].ucompsize = BLOCK_SIZE+1;
 			thread_data_array[i].compsize = compressBound(BLOCK_SIZE+1);
+			memset(thread_data_array[i].compress,0,sizeof(thread_data_array[i].compress));
+
+
 
 
 			rc = pthread_create(&threads[i], &attr, CompressionWork, (void *)&thread_data_array[i]);
 
 
 			if(rc){
-				printf("return code from pthread_create is %d\n", rc);
+				printf("ERROR: return code from pthread_create is %d\n", rc);
 				exit(-1);
 			}
-			
+
+
+		}
+
+
+		//Wait for threads to complete
+		for(int i=0; i<thread_num;i++){
+			rc = pthread_join(threads[i], &status);
+			if(rc){
+				printf("ERROR: return code from pthread_join is %d\n", rc);
+				exit(-1);
+			}
+		//printf("Main: completed join with thread %d having a status of %ld\n", i,(long)status);
+		}
+
+
+
+
+		//Write the compress data to output file
+		for(int i =0; i< thread_num;i++){
 			compressed_length = strlen(thread_data_array[i].compress);
 			putw(compressed_length, record_ptr);
 			
 			//write the compressed data to the output file
+			//printf("The size of compress is %ld\n", sizeof(thread_data_array[i].compress));
+			//printf("The strlen of compress is %ld\n", strlen(thread_data_array[i].compress));
+
+
+
 			fwrite(thread_data_array[i].compress, 1, strlen(thread_data_array[i].compress), output_ptr);
 
 
 		}
-			// Wait all threads finish
-			for(int i=0; i<thread_num;i++){
-			rc = pthread_join(threads[i], &status);
-			if(rc){
-				printf("ERROR; return code from pthread_create is %d\n", rc);
-				exit(-1);
-			}
 
-		}
 
 		
 	}
@@ -201,11 +229,13 @@ int main(int argc, char ** argv){
 
 			rc = pthread_create(&threads[i], NULL, CompressionWork, (void *)&thread_data_array[i]);
 
-			compressed_length = strlen(thread_data_array[i].compress);
-			putw(compressed_length, record_ptr);
+			
+			if(rc){
+				printf("ERROR: return code from pthread_create is %d\n", rc);
+				exit(-1);
+			}
 
-		
-			fwrite(thread_data_array[i].compress, 1, blocks_num%BLOCK_SIZE, output_ptr);
+
 		
 		//The final part of the work with uncompress data less than 4096 Byte
 		}else{
@@ -218,14 +248,45 @@ int main(int argc, char ** argv){
 
 			rc = pthread_create(&threads[i], NULL, CompressionWork, (void *)&thread_data_array[i]);
 
-			compressed_length = strlen(thread_data_array[i].compress);
-			putw(compressed_length, record_ptr);
-
-			fwrite(thread_data_array[i].compress, 1, strlen(thread_data_array[i].compress), output_ptr);
+			if(rc){
+				printf("ERROR: return code from pthread_create is %d\n", rc);
+				exit(-1);
+			}
 
 		}
 
+
 	}
+
+
+	//Wait all final blocks to finish
+	for(int i=0; i<remaining_block;i++){
+		rc = pthread_join(threads[i], &status);
+		if(rc){
+			printf("ERROR: return code from pthread_join is %d\n", rc);
+			exit(-1);
+		}
+	//printf("Main: completed join with thread %d having a status of %ld\n", i,(long)status);
+	}
+
+
+	for(int i =0; i< remaining_block;i++){
+		compressed_length = strlen(thread_data_array[i].compress);
+		putw(compressed_length, record_ptr);
+		
+		//write the compressed data to the output file
+		//printf("The size of compress is %ld\n", sizeof(thread_data_array[i].compress));
+		//printf("The strlen of compress is %ld\n", strlen(thread_data_array[i].compress));
+
+
+
+		fwrite(thread_data_array[i].compress, 1, strlen(thread_data_array[i].compress), output_ptr);
+
+
+	}
+
+
+
 	
 	fclose(input_ptr);
 	fclose(output_ptr);
@@ -236,7 +297,7 @@ int main(int argc, char ** argv){
 	elapsed = (finish.tv_sec - start.tv_sec);
 	elapsed += (finish.tv_nsec - start.tv_nsec)/1000000000.0;
 
-	printf("Hi, the time used for %d threads is %f\n",thread_num, elapsed);
+	printf("Hi, the time used for total %d thread(s) is(are) %f\n",thread_num, elapsed);
 	pthread_exit(NULL);
 	return EXIT_SUCCESS;
 }
