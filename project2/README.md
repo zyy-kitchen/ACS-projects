@@ -86,15 +86,11 @@ int read_file_blocks(char blocks[][BLOCK_SIZE+1], int thread_num, FILE * ptr, in
 ```
 
 ## Testing Hardware
-1. i7-6700HQ
-   GTX 980M
-   16G DDR4 Memory
-   Ubuntu 20.04
+i7-6700HQ  
+GTX 980M  
+16G DDR4 Memory  
+Ubuntu 20.04
 
-2. i7-8700K Boost to 4.7GHz
-   GTX 1080
-   32G DDR4 Memory
-   Windows 10 64 bit
 
 ## Experimental results
 TODO
