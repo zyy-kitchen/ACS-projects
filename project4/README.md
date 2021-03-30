@@ -15,6 +15,7 @@ In order to run the program, you can use the following command to compile and ru
 #### gcc -Wall main.c
 #### ./a.out -e(Mode selection) input.txt(The input file name) output.txt(The output file name)
 #### eg: ./a.out -e Small-Size-Column.txt output_small.txt
+#### Please do not use Large-Size-Column.txt for testing
 
 ## User Interface
 Once you compile and run the a.out file, the program will first check if you enter correct arguments, if the program detects that **you do not enter appropriate command, it will exit and return a error message**. Once the command line detection is passed, the program will try to open the input file with the given file name. If the program detect **the input file cannot be open, the program will exit and return a error message**. After finish these checks, the program will start running based on you command and **print proper information and the time usage for the process**.
@@ -66,10 +67,32 @@ unsigned long long hash(char* raw)
 \*16G DDR4 Memory  
 \*Ubuntu 20.04
 
-## Testing result:TODO
+## Testing result:
+For encoding mode:  
+|             Command 	                      |	Time(s)|
+|---------------------------------------------|--------|
+|./a.out -e  Small-Size-Column.txt  output_Small.txt |  0.179915  |
+|./a.out -e  Medium-Size-Column.txt output_Middle.txt |   12.01362   |  
+  
 
-## Conclusion: TODO
+For decoding mode:  
+|             Command 	                      |	Time(s)|
+|---------------------------------------------|--------|
+|./a.out -e output_Small.txt decoder_Small.txt |  0.173924  |
+|./a.out -e output_Middle.txt decoder_Middle.txt |   12.00346   |  
 
+
+For Query mode:  
+|             Command 	                      |	Appear Times| Time(s)| 
+|---------------------------------------------|--------|--------|
+|./a.out -q output_Middle.txt cioyecge  |  146 |0.00028 |
+|./a.out -q output_Middle.txt zikzcpq  |  106  |0.00028|
+|./a.out -q output_Middle.txt acknn  |  100  |0.00029 |
+|./a.out -q output_Middle.txt qythiesqk  | 192  |0.00028|
+|./a.out -q output_Middle.txt fasdfadsfas  | 0  |0.00735|  
+
+## Analysis  && Conclusion: 
+In conclusion, the team success create a dictionary encoder in C and it support encoding, decoding and Query functionalities. Based on the testing result, the team find out that the building for the dictionary will take up most of the running time that as the input file become larger, the running time for the program will increase accordingly. Moreoever, the team find out the time for encoding and decoding operation for same file size is similar to each other as that for both operation, the program will take time to build the dictionary. For Query operation, the query time for existing strings will be shorter than the time for non-existing strings because for non-existing strings, the program have to go through every ling of the input file. Moreover, for this program, currently it cannot support too large input file for encoding operation(it will take too long to create the dictionary), in the future, the team will try to optimize the data structure to improve the capability of the program.
 
 
 
