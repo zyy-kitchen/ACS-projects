@@ -5,5 +5,8 @@ also implemented to balance hash table size.
 ## supported operations:
   GET, PUT, SET, DELETE, Container Status  
   Use mutex for concurrency control 
+## Compile && Run the program
+gcc -Wall -pthread main.c operation.c
+./a.out
 ## Detailed analysis
   See the simplified memcached pdf file for details.
